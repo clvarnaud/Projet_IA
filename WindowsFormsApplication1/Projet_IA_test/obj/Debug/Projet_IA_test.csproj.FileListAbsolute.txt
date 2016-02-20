@@ -1,0 +1,9 @@
+C:\Users\Arnaud\Downloads\WindowsFormsApplication1\WindowsFormsApplication1\Projet_IA_test\bin\Debug\Projet_IA_test.exe.config
+C:\Users\Arnaud\Downloads\WindowsFormsApplication1\WindowsFormsApplication1\Projet_IA_test\bin\Debug\Projet_IA_test.exe
+C:\Users\Arnaud\Downloads\WindowsFormsApplication1\WindowsFormsApplication1\Projet_IA_test\bin\Debug\Projet_IA_test.pdb
+C:\Users\Arnaud\Downloads\WindowsFormsApplication1\WindowsFormsApplication1\Projet_IA_test\obj\Debug\Projet_IA_test.csprojResolveAssemblyReference.cache
+C:\Users\Arnaud\Downloads\WindowsFormsApplication1\WindowsFormsApplication1\Projet_IA_test\obj\Debug\Projet_IA_test.Form1.resources
+C:\Users\Arnaud\Downloads\WindowsFormsApplication1\WindowsFormsApplication1\Projet_IA_test\obj\Debug\Projet_IA_test.Properties.Resources.resources
+C:\Users\Arnaud\Downloads\WindowsFormsApplication1\WindowsFormsApplication1\Projet_IA_test\obj\Debug\Projet_IA_test.csproj.GenerateResource.Cache
+C:\Users\Arnaud\Downloads\WindowsFormsApplication1\WindowsFormsApplication1\Projet_IA_test\obj\Debug\Projet_IA_test.exe
+C:\Users\Arnaud\Downloads\WindowsFormsApplication1\WindowsFormsApplication1\Projet_IA_test\obj\Debug\Projet_IA_test.pdb
