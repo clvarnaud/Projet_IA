@@ -6,3 +6,8 @@ H:\Prog Avancée\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug
 H:\Prog Avancée\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.exe
 H:\Prog Avancée\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.pdb
 C:\Users\Arnaud\Documents\GitHub\Projet_IA\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.exe
+C:\Users\deny\Documents\GitHub\Projet_IA\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.exe
+C:\Users\deny\Documents\GitHub\Projet_IA\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\Projet_IA_Clavero_Deny.csprojResolveAssemblyReference.cache
+C:\Users\deny\Documents\GitHub\Projet_IA\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+C:\Users\deny\Documents\GitHub\Projet_IA\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\deny\Documents\GitHub\Projet_IA\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\Projet_IA_Clavero_Deny.csproj.GenerateResource.Cache
