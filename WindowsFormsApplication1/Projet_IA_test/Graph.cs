@@ -104,10 +104,10 @@ namespace Projet_IA_test
                     {
                         // Il existe, donc on l'a déjà vu, N2 n'est qu'une copie de N2Bis
                         // Le nouveau chemin passant par N est-il meilleur ?
-                        if (N.GetGCost() + N.GetArcCost(N2) < N2bis.GetGCost())
+                        if (N.GetGCost() + N.GetArcCost(N,N2) < N2bis.GetGCost())
                         {
                             // Mise à jour de N2bis
-                            N2bis.SetGCost(N.GetGCost() + N.GetArcCost(N2));
+                            N2bis.SetGCost(N.GetGCost() + N.GetArcCost(N,N2));
                             // HCost pas recalculé car toujours bon
                             N2bis.calculCoutTotal(); // somme de GCost et HCost
                             // Mise à jour de la famille ....
@@ -122,7 +122,7 @@ namespace Projet_IA_test
                     else
                     {
                         // N2 est nouveau, MAJ et insertion dans les ouverts
-                        N2.SetGCost(N.GetGCost() + N.GetArcCost(N2));
+                        N2.SetGCost(N.GetGCost() + N.GetArcCost(N,N2));
                         N2.CalculeHCost();
                         N2.SetNoeud_Parent(N);
                         N2.calculCoutTotal(); // somme de GCost et HCost
@@ -191,6 +191,60 @@ namespace Projet_IA_test
                 if (GNfils.GetEnfants().Count > 0) AjouteBranche(GNfils, TNfils); 
             }
         }
-  
+
+
+        private void cheminAvecEtapes (string nom)
+        {
+            List<String> listeMots = new List < String> ();
+
+           listeMots=permute(nom.ToCharArray(), 0, nom.Length - 1);
+            foreach (var mots in listeMots)
+            {
+                for (int i = 0; i < mots.Length; i++)
+                {
+                    char depart = mots[i];
+                    char  arrivee = mots[i + 1];
+                    Graph g = new Graph();
+                    Node noeud = new Node(depart.ToString(), arrivee.ToString());
+                    List<GenericNode> L_resultat = g.RechercheSolutionAEtoile(noeud);
+
+                    // Calcul du cout total 
+                    //Comparaison et on garde le cout minimal
+                }
+            }
+
+
+        }
+
+        static List<String> permute(char[] arry, int i, int n)
+        {
+            List<String> liste_possibilites = new List<String>();
+            int j;
+            if (i == n)
+            {
+                liste_possibilites.Add(new String(arry));
+            }
+                
+            else
+            {
+                for (j = i; j <= n; j++)
+                {
+                    swap(ref arry[i], ref arry[j]);
+                    permute(arry, i + 1, n);
+                    swap(ref arry[i], ref arry[j]);
+                }
+            }
+
+            return liste_possibilites;
+        }
+
+        static void swap(ref char a, ref char b)
+        {
+            char tmp;
+            tmp = a;
+            a = b;
+            b = tmp;
+        }
+
     }
 }

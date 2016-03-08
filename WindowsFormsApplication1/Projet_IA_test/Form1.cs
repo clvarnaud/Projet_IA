@@ -38,10 +38,14 @@ namespace Projet_IA_test
                 {0,0,0,0,0,0,0,0,0,0,7,10,0,0,0,0,0,0,0,0,0,6,0},
             };
 
-
+        char[] correspondance_Chiffre_Lettres = {'A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W' };
+        char[] ferme = { 'B', 'H', 'G', 'J', 'F', 'V', 'Q', 'O', 'S', 'T', 'M' };
         public Form1()
         {
             InitializeComponent();
+            Node.matrice = matrice;
+            Node.correspondance = correspondance_Chiffre_Lettres;
+
         }
 
         private void impasse_btn_Click(object sender, EventArgs e)
@@ -76,6 +80,26 @@ namespace Projet_IA_test
 
             return _nbImpasse;
         }
+
+        private void button_recherche_plus_court_Click(object sender, EventArgs e)
+        {
+            string depart = textBox_depart.Text.ToUpper();
+            string arrivee = textBox_arrivee.Text.ToUpper();
+
+            Graph g = new Graph();
+
+            Node noeud = new Node(depart, arrivee);
+            List<GenericNode> L_resultat = g.RechercheSolutionAEtoile(noeud);
+            listbox_affichage.Items.Clear();
+            foreach (GenericNode N in L_resultat)
+            {
+                listbox_affichage.Items.Add(N);
+            }
+
+
+        }
+
+
 
         /*public string plusCourtChemin(int[,] matrice, char a, char b)
         {

@@ -8,100 +8,86 @@ namespace Projet_IA_test
 {
     class Node : GenericNode
     {
+        private static string _deb;
+        private static string _fin;
+        public static int[,] matrice;
+        public static char[] correspondance;
+
+
+
         public Node(string newname) : base(newname)
         {
         }
 
-        public override double GetArcCost(GenericNode N2)
+        public Node (string deb,string fin) :this(deb)
         {
-            return (1);
+            _deb = deb;
+            _fin = fin;
+
+        }
+        public override double GetArcCost(GenericNode N1, GenericNode N2)
+        {
+            double cost=0;
+            bool find1=false;
+            bool find2 = false;
+            int i=0;
+            int j = 0;
+            while (!find1)
+            {
+                if(correspondance[i].ToString()==N1.GetNom())
+                {
+                    find1 = true;
+                    while (!find2)
+                    {
+                        if (correspondance[j].ToString()==N2.GetNom())
+                        {
+                            find2 = true;
+                            cost = matrice[i, j];
+                            
+                        }
+                        
+                        j++;
+                    }
+                }
+
+                i ++;
+            }
+            return cost;
+
         }
 
         public override bool EndState()
         {
-            return (this.GetNom() == "12345678?");
+
+            if(this.Name==_fin.ToString())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
 
         public override List<GenericNode> GetListSucc()
         {
-            int posx = -1; int posy = -1;
-            char[,] tab = new char[3, 3];
-            for (int j = 0; j <= 2; j++)
-                for (int i = 0; i <= 2; i++)
+            List<GenericNode> lsucc = new List<GenericNode>();
+            char voisin;
+            for (int i = 0; i < 23; i++)
+            {
+                if (correspondance[i].ToString() == Name)
                 {
-                    tab[i, j] = Name[j * 3 + i];
-                    if (tab[i, j] == '?')
+
+                    for (int j = 0; j < 23; j++)
                     {
-                        posx = i;
-                        posy = j;
+                        if (matrice[i,j]!=0)
+                        {
+                            voisin = correspondance[j];
+                            lsucc.Add(new Node(voisin.ToString()));                       
+                        }
                     }
                 }
-
-            List<GenericNode> lsucc = new List<GenericNode>();
-            if (posx > 0)
-            {
-                // Successeur à gauche
-                // recopie du tableau
-                char[,] tab2 = new char[3, 3];
-                for (int j = 0; j <= 2; j++)
-                    for (int i = 0; i <= 2; i++)
-                    {
-                        tab2[i, j] = tab[i, j];
-                    }
-                // MAJ de la position du ?
-                tab2[posx, posy] = tab2[posx - 1, posy];
-                tab2[posx - 1, posy] = '?';
-                // Ajout à listsucc
-                lsucc.Add(new Node(GetStringFromTab(tab2)));
-            }
-            if (posx < 2)
-            {
-                // Successeur à droite
-                // recopie du tableau
-                char[,] tab2 = new char[3, 3];
-                for (int j = 0; j <= 2; j++)
-                    for (int i = 0; i <= 2; i++)
-                    {
-                        tab2[i, j] = tab[i, j];
-                    }
-                // MAJ de la position du ?
-                tab2[posx, posy] = tab2[posx + 1, posy];
-                tab2[posx + 1, posy] = '?';
-                // Ajout à listsucc
-                lsucc.Add(new Node(GetStringFromTab(tab2)));
-            }
-
-            if (posy > 0)
-            {
-                // Successeur en haut
-                // recopie du tableau
-                char[,] tab2 = new char[3, 3];
-                for (int j = 0; j <= 2; j++)
-                    for (int i = 0; i <= 2; i++)
-                    {
-                        tab2[i, j] = tab[i, j];
-                    }
-                // MAJ de la position du ?
-                tab2[posx, posy] = tab2[posx, posy - 1];
-                tab2[posx, posy - 1] = '?';
-                // Ajout à listsucc
-                lsucc.Add(new Node(GetStringFromTab(tab2)));
-            }
-            if (posy < 2)
-            {
-                // Successeur en bas
-                // recopie du tableau
-                char[,] tab2 = new char[3, 3];
-                for (int j = 0; j <= 2; j++)
-                    for (int i = 0; i <= 2; i++)
-                    {
-                        tab2[i, j] = tab[i, j];
-                    }
-                // MAJ de la position du ?
-                tab2[posx, posy] = tab2[posx, posy + 1];
-                tab2[posx, posy + 1] = '?';
-                // Ajout à listsucc
-                lsucc.Add(new Node(GetStringFromTab(tab2)));
             }
 
             return lsucc;
