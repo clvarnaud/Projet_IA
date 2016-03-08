@@ -40,6 +40,7 @@
             this.textBox_chemin = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.button_recherche_chemin = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // impasse_btn
@@ -144,12 +145,23 @@
             this.button_recherche_chemin.TabIndex = 11;
             this.button_recherche_chemin.Text = "Rechercher";
             this.button_recherche_chemin.UseVisualStyleBackColor = true;
+            this.button_recherche_chemin.Click += new System.EventHandler(this.button_recherche_chemin_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(397, 216);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "label5";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 330);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.button_recherche_chemin);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox_chemin);
@@ -183,6 +195,7 @@
         private System.Windows.Forms.TextBox textBox_chemin;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button_recherche_chemin;
+        private System.Windows.Forms.Label label5;
     }
 }
 

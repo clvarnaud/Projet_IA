@@ -99,6 +99,23 @@ namespace Projet_IA_test
 
         }
 
+        private void button_recherche_chemin_Click(object sender, EventArgs e)
+        {
+            string solution;
+            string saisie;
+            saisie = textBox_chemin.Text;
+            Graph g = new Graph();
+            solution = g.cheminAvecEtapes(saisie);
+            listbox_affichage.Items.Clear();
+            /*  for (int i = 0; i < saisie.Length; i++)
+              {
+                  listbox_affichage.Items.Add(solution[i]);
+              }*/
+
+            label5.Text = solution;
+            
+        }
+
 
 
         /*public string plusCourtChemin(int[,] matrice, char a, char b)

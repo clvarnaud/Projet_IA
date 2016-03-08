@@ -193,11 +193,13 @@ namespace Projet_IA_test
         }
 
 
-        private void cheminAvecEtapes (string nom)
+        public string cheminAvecEtapes (string nom)
         {
             List<String> listeMots = new List < String> ();
-
-           listeMots=permute(nom.ToCharArray(), 0, nom.Length - 1);
+            double cout = 0;
+            double cout_min=-1;
+            string solution=null;
+            listeMots =permute(nom.ToCharArray(), 0, nom.Length - 1);
             foreach (var mots in listeMots)
             {
                 for (int i = 0; i < mots.Length; i++)
@@ -207,13 +209,38 @@ namespace Projet_IA_test
                     Graph g = new Graph();
                     Node noeud = new Node(depart.ToString(), arrivee.ToString());
                     List<GenericNode> L_resultat = g.RechercheSolutionAEtoile(noeud);
+                    for (int j = 0; j < L_resultat.Count; j++)
+                    {
 
-                    // Calcul du cout total 
-                    //Comparaison et on garde le cout minimal
+                        GenericNode depart_bis = L_resultat[j];
+                        GenericNode arrivee_bis = L_resultat[j];
+
+
+                        cout = cout + depart_bis.GetArcCost(depart_bis, arrivee_bis);
+
+
+                        if (cout_min < 0)
+                        {
+                            cout_min = cout;
+                            solution = mots;
+                        }
+                        else
+                        {
+                            if (cout_min > cout)
+                            {
+                                cout_min = cout;
+                                solution = mots;
+                            }
+
+                        }
+                    }
+                    
                 }
+
+                
             }
 
-
+            return solution;
         }
 
         static List<String> permute(char[] arry, int i, int n)
