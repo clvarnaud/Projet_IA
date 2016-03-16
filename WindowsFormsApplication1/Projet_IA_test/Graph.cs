@@ -13,6 +13,7 @@ namespace Projet_IA_test
         private List<GenericNode> L_Fermes;
         private List<string> L_permut;
         private int cout_total;
+        char[] ferme = { 'B', 'H', 'G', 'J', 'F', 'V', 'Q', 'O', 'S', 'T', 'M' };
 
         private GenericNode ChercheNodeDansFermes(string NodeName)
         {
@@ -262,6 +263,38 @@ namespace Projet_IA_test
             return L_Gene[index];
         }
 
+        public List<GenericNode> cheminAvecFermes(string nom)
+
+        {
+            int nombre_ferme=0;
+            List<char> L_fermes_trajet=new List<char>();
+            List<GenericNode> L_Gene;
+            for (int i = 0; i < nom.Length-1; i++)
+            {
+                for (int j = 0; j <ferme.Length-1 ; j++)
+                {
+                    if(nom[i]==ferme[j])
+                    {
+                        nombre_ferme = nombre_ferme + 1;
+                        L_fermes_trajet.Add(nom[i]);
+
+                    }
+                }
+            
+                if(nombre_ferme<4)
+                {
+                    L_Gene = cheminAvecEtapes(nom);
+                    return L_Gene;
+                }
+                else
+                {
+
+                }
+            }
+
+
+
+        }
         /*  static List<String> permute(char[] arry, int i, int n)
           {
               List<String> liste_possibilites = new List<String>();
@@ -292,7 +325,7 @@ namespace Projet_IA_test
               b = tmp;
           }*/
 
-        
+
         private void Permutation(string soFar, string input)
         {
             List<String> liste_possibilites = new List<String>();

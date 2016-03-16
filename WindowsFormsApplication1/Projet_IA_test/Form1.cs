@@ -39,7 +39,7 @@ namespace Projet_IA_test
             };
 
         char[] correspondance_Chiffre_Lettres = {'A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W' };
-        char[] ferme = { 'B', 'H', 'G', 'J', 'F', 'V', 'Q', 'O', 'S', 'T', 'M' };
+        
         public Form1()
         {
             InitializeComponent();
