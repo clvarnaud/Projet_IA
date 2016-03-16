@@ -101,18 +101,21 @@ namespace Projet_IA_test
 
         private void button_recherche_chemin_Click(object sender, EventArgs e)
         {
-            string solution;
+            List<GenericNode> solution;
             string saisie;
             saisie = textBox_chemin.Text;
             Graph g = new Graph();
             solution = g.cheminAvecEtapes(saisie);
             listbox_affichage.Items.Clear();
-            /*  for (int i = 0; i < saisie.Length; i++)
-              {
-                  listbox_affichage.Items.Add(solution[i]);
-              }*/
+            foreach (GenericNode N in solution)
+            {
+                listbox_affichage.Items.Add(N);
+            }
 
-            label5.Text = solution;
+            
+
+
+
             
         }
 

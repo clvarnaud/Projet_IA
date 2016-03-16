@@ -12,6 +12,7 @@ namespace Projet_IA_test
         private static string _fin;
         public static int[,] matrice;
         public static char[] correspondance;
+        
 
 
 
@@ -19,10 +20,11 @@ namespace Projet_IA_test
         {
         }
 
-        public Node (string deb,string fin) :this(deb)
+        public Node (string deb,string fin ) :this(deb)
         {
             _deb = deb;
             _fin = fin;
+            _distance_totale = 0;
 
         }
         public override double GetArcCost(GenericNode N1, GenericNode N2)

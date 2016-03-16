@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -10,6 +11,8 @@ namespace Projet_IA_test
     {
         private List<GenericNode> L_Ouverts;
         private List<GenericNode> L_Fermes;
+        private List<string> L_permut;
+        private int cout_total;
 
         private GenericNode ChercheNodeDansFermes(string NodeName)
         {
@@ -44,6 +47,7 @@ namespace Projet_IA_test
             // Le noeud passé en paramètre est supposé être le noeud initial
             GenericNode N = N0;
             L_Ouverts.Add(N0);
+            
 
             // tant que le noeud n'est pas terminal et que ouverts n'est pas vide
             while (L_Ouverts.Count != 0 && N.EndState() == false)
@@ -193,84 +197,122 @@ namespace Projet_IA_test
         }
 
 
-        public string cheminAvecEtapes (string nom)
+        public List<GenericNode> cheminAvecEtapes (string nom)
         {
             List<String> listeMots = new List < String> ();
-            double cout = 0;
-            double cout_min=-1;
-            string solution=null;
-            listeMots =permute(nom.ToCharArray(), 0, nom.Length - 1);
+            
+            
+            double cout_min=10000000000000000;
+            int count_mots=0;
+            List<int> L_dist = new List<int>();
+            
+            Debug.WriteLine(nom);
+            L_permut = new List<string>();
+
+            Permutation("",nom);
+            listeMots = L_permut;
+            // listeMots.Add("AKWQOA");
+            Debug.WriteLine("nbPermut : " + L_permut.Count);
+            List<List<GenericNode>> L_Gene = new List<List<GenericNode>>();
             foreach (var mots in listeMots)
             {
-                for (int i = 0; i < mots.Length; i++)
+                
+                Node A = new Node("A", mots[0].ToString());
+                List<GenericNode> L_chemin = new List<GenericNode>();
+                L_chemin = RechercheSolutionAEtoile(A);
+                L_dist.Add(Node._distance_totale);
+                
+                for (int i = 0; i < mots.Length-1; i++)
                 {
                     char depart = mots[i];
                     char  arrivee = mots[i + 1];
-                    Graph g = new Graph();
+                    //Console.WriteLine(mots);
+                    //Graph g = new Graph();
+                    Debug.WriteLine(depart + "//" + arrivee);
                     Node noeud = new Node(depart.ToString(), arrivee.ToString());
-                    List<GenericNode> L_resultat = g.RechercheSolutionAEtoile(noeud);
-                    for (int j = 0; j < L_resultat.Count; j++)
-                    {
-
-                        GenericNode depart_bis = L_resultat[j];
-                        GenericNode arrivee_bis = L_resultat[j];
-
-
-                        cout = cout + depart_bis.GetArcCost(depart_bis, arrivee_bis);
-
-
-                        if (cout_min < 0)
-                        {
-                            cout_min = cout;
-                            solution = mots;
-                        }
-                        else
-                        {
-                            if (cout_min > cout)
-                            {
-                                cout_min = cout;
-                                solution = mots;
-                            }
-
-                        }
-                    }
+                    List<GenericNode> L_resultat = RechercheSolutionAEtoile(noeud);
+                    L_resultat.RemoveAt(0);
+                    L_chemin.AddRange(L_resultat);
+                    L_dist[count_mots] += Node._distance_totale;
                     
                 }
+                Node A_fin = new Node(mots[(mots.Count())-1].ToString(),"A");
+                List<GenericNode> L_r = RechercheSolutionAEtoile(A_fin);
+                L_r.RemoveAt(0);
+                L_chemin.AddRange(L_r);
+                L_dist[count_mots]+=Node._distance_totale;
 
-                
+                L_Gene.Add(L_chemin);
+                count_mots = count_mots + 1;
+
+            }
+            int index=0;
+            int k = 0;
+            Debug.WriteLine(L_dist.Count + "//" + L_Gene.Count);
+            foreach(int distance in L_dist)
+            {
+                if(distance<cout_min)
+                {
+                    cout_min = distance;
+                    index = k;
+                 }
+                k++;
             }
 
-            return solution;
+            return L_Gene[index];
         }
 
-        static List<String> permute(char[] arry, int i, int n)
+        /*  static List<String> permute(char[] arry, int i, int n)
+          {
+              List<String> liste_possibilites = new List<String>();
+              int j;
+              if (i == n)
+              {
+                  liste_possibilites.Add(new String(arry));
+              }
+
+              else
+              {
+                  for (j = i; j <= n; j++)
+                  {
+                      swap(ref arry[i], ref arry[j]);
+                      permute(arry, i + 1, n);
+                      swap(ref arry[i], ref arry[j]);
+                  }
+              }
+
+              return liste_possibilites;
+          }
+
+          static void swap(ref char a, ref char b)
+          {
+              char tmp;
+              tmp = a;
+              a = b;
+              b = tmp;
+          }*/
+
+        
+        private void Permutation(string soFar, string input)
         {
             List<String> liste_possibilites = new List<String>();
-            int j;
-            if (i == n)
+            
+            if (string.IsNullOrEmpty(input))
             {
-                liste_possibilites.Add(new String(arry));
+                L_permut.Add(soFar);
+                liste_possibilites.Add(soFar);
+                Debug.WriteLine(soFar+"//"+liste_possibilites.Count);
             }
-                
             else
             {
-                for (j = i; j <= n; j++)
+                for (int i = 0; i < input.Length; i++)
                 {
-                    swap(ref arry[i], ref arry[j]);
-                    permute(arry, i + 1, n);
-                    swap(ref arry[i], ref arry[j]);
+
+                    string remaining = input.Substring(0, i) + input.Substring(i + 1);
+                    Permutation(soFar + input[i], remaining);
                 }
             }
-
-            return liste_possibilites;
-        }
-
-        static void swap(ref char a, ref char b)
-        {
-            char tmp;
-            tmp = a;
-            a = b;
-            b = tmp;
+            
         }
 
     }

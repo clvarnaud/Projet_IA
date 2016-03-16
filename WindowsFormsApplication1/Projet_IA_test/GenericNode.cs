@@ -15,6 +15,7 @@ namespace Projet_IA_test
         protected double TotalCost;           //coût total (g+h)
         protected GenericNode ParentNode;     // noeud parent
         protected List<GenericNode> Enfants;  // noeuds enfants
+        public static int _distance_totale;
 
         public GenericNode(string nom)
         {
@@ -82,6 +83,7 @@ namespace Projet_IA_test
         {
 
             TotalCost = GCost + HCost;
+            _distance_totale += (int)TotalCost;
 
         }
 
