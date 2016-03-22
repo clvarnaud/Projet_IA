@@ -267,9 +267,76 @@ namespace Projet_IA_test
 
         {
             int nombre_ferme=0;
-            List<char> L_fermes_trajet=new List<char>();
-            List<GenericNode> L_Gene;
-            for (int i = 0; i < nom.Length-1; i++)
+            int reste_division = 0;
+            int quotient_division = 0;            
+            List<String> L_fermes_trajet=new List<String>();
+            List<GenericNode> L_chemin = new List<GenericNode>();
+            List<int> L_index = new List<int>();
+            List<GenericNode> L_Gene=new List<GenericNode>();
+            List<GenericNode> L_Chemin_Intermediaire= new List<GenericNode>();
+            int index=0;
+
+            L_chemin = cheminAvecEtapes(nom);
+
+            foreach (GenericNode noeud in L_chemin)
+            {
+                index++;
+                for (int i = 0; i < ferme.Length-1; i++)
+                {
+                    if (noeud.GetNom() == ferme[i].ToString())
+                    {
+                        
+                        L_fermes_trajet.Add(noeud.GetNom());
+                        L_index.Add(index);
+                    }
+                }
+                nombre_ferme = L_fermes_trajet.Count();
+                if (nombre_ferme<4)
+                {
+                    L_Gene = L_chemin;
+                }
+                else
+                {
+                    reste_division = nombre_ferme % 4;
+                    quotient_division = nombre_ferme / 4;
+                    string chemin="";
+
+                    int k=0;
+                    while (quotient_division>0)
+                    {
+                        k++;
+                        for (int i = k; i< (4*k)-1; i++)
+                        {
+                            chemin = chemin+ L_chemin[i].GetNom();
+                       
+
+                        }
+
+                        L_Chemin_Intermediaire = cheminAvecEtapes(chemin);
+
+                        foreach (GenericNode noeud2 in L_Chemin_Intermediaire)
+                        {
+                            L_Gene.Add(noeud2);
+                        }
+
+
+                        quotient_division--;
+                        
+                    }
+
+                    if( reste_division>0)
+                    {
+                        while (reste_division>0)
+                        {
+
+                        }
+                    }
+
+                }
+            }
+            
+
+           /* for (int i = 0; i < nom.Length-1; i++)
             {
                 for (int j = 0; j <ferme.Length-1 ; j++)
                 {
@@ -288,9 +355,13 @@ namespace Projet_IA_test
                 }
                 else
                 {
+                    int compteur_ferme = nombre_ferme;
+                    while (compteur_ferme==0)
+                    {
 
+                    }
                 }
-            }
+            }*/
 
 
 
