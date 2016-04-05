@@ -41,6 +41,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.button_recherche_chemin = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.txtBox_chemin_fermes = new System.Windows.Forms.TextBox();
+            this.btn_search_fermes = new System.Windows.Forms.Button();
+            this.btn_sculpture = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // impasse_btn
@@ -150,17 +153,47 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(397, 216);
+            this.label5.Location = new System.Drawing.Point(411, 193);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.Size = new System.Drawing.Size(109, 13);
             this.label5.TabIndex = 12;
-            this.label5.Text = "label5";
+            this.label5.Text = "Chemin avec fermes :";
+            // 
+            // txtBox_chemin_fermes
+            // 
+            this.txtBox_chemin_fermes.Location = new System.Drawing.Point(414, 236);
+            this.txtBox_chemin_fermes.Name = "txtBox_chemin_fermes";
+            this.txtBox_chemin_fermes.Size = new System.Drawing.Size(100, 20);
+            this.txtBox_chemin_fermes.TabIndex = 13;
+            // 
+            // btn_search_fermes
+            // 
+            this.btn_search_fermes.Location = new System.Drawing.Point(546, 236);
+            this.btn_search_fermes.Name = "btn_search_fermes";
+            this.btn_search_fermes.Size = new System.Drawing.Size(75, 23);
+            this.btn_search_fermes.TabIndex = 14;
+            this.btn_search_fermes.Text = "Rechercher";
+            this.btn_search_fermes.UseVisualStyleBackColor = true;
+            this.btn_search_fermes.Click += new System.EventHandler(this.btn_search_fermes_Click);
+            // 
+            // btn_sculpture
+            // 
+            this.btn_sculpture.Location = new System.Drawing.Point(384, 292);
+            this.btn_sculpture.Name = "btn_sculpture";
+            this.btn_sculpture.Size = new System.Drawing.Size(75, 23);
+            this.btn_sculpture.TabIndex = 15;
+            this.btn_sculpture.Text = "Sculpture";
+            this.btn_sculpture.UseVisualStyleBackColor = true;
+            this.btn_sculpture.Click += new System.EventHandler(this.btn_sculpture_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 330);
+            this.Controls.Add(this.btn_sculpture);
+            this.Controls.Add(this.btn_search_fermes);
+            this.Controls.Add(this.txtBox_chemin_fermes);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.button_recherche_chemin);
             this.Controls.Add(this.label4);
@@ -196,6 +229,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button_recherche_chemin;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtBox_chemin_fermes;
+        private System.Windows.Forms.Button btn_search_fermes;
+        private System.Windows.Forms.Button btn_sculpture;
     }
 }
 

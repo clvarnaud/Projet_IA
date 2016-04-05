@@ -16,6 +16,8 @@ namespace Projet_IA_test
         protected GenericNode ParentNode;     // noeud parent
         protected List<GenericNode> Enfants;  // noeuds enfants
         public static int _distance_totale;
+        public string sculpture;
+
 
         public GenericNode(string nom)
         {
@@ -29,6 +31,15 @@ namespace Projet_IA_test
             return Name;
         }
 
+        public string GetSculpture()
+        {
+            return sculpture;
+        }
+
+        public void SetSculpture(string s)
+        {
+            sculpture = s;
+        }
         public double GetGCost()
         {
             return GCost;

@@ -14,6 +14,11 @@ namespace Projet_IA_test
         private List<string> L_permut;
         private int cout_total;
         char[] ferme = { 'B', 'H', 'G', 'J', 'F', 'V', 'Q', 'O', 'S', 'T', 'M' };
+        string[] Sculpteur1 = { "s1","s1","s1","s1", "s1", "s1", "s1", "s1" };
+        string[] Sculpteur2 = { "s2", "s2", "s2", "s2", "s2", "s2", "s2", "s2" };
+        string[] Sculpteur3 = { "s3", "s3", "s3", "s3", "s3", "s3", "s3" };
+        List<char> intersection = new List<char> () { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W' };
+        public static int[,] matrice;
 
         private GenericNode ChercheNodeDansFermes(string NodeName)
         {
@@ -207,13 +212,13 @@ namespace Projet_IA_test
             int count_mots=0;
             List<int> L_dist = new List<int>();
             
-            Debug.WriteLine(nom);
+            //Debug.WriteLine(nom);
             L_permut = new List<string>();
 
             Permutation("",nom);
             listeMots = L_permut;
             // listeMots.Add("AKWQOA");
-            Debug.WriteLine("nbPermut : " + L_permut.Count);
+           //Debug.WriteLine("nbPermut : " + L_permut.Count);
             List<List<GenericNode>> L_Gene = new List<List<GenericNode>>();
             foreach (var mots in listeMots)
             {
@@ -229,7 +234,7 @@ namespace Projet_IA_test
                     char  arrivee = mots[i + 1];
                     //Console.WriteLine(mots);
                     //Graph g = new Graph();
-                    Debug.WriteLine(depart + "//" + arrivee);
+                    //Debug.WriteLine(depart + "//" + arrivee);
                     Node noeud = new Node(depart.ToString(), arrivee.ToString());
                     List<GenericNode> L_resultat = RechercheSolutionAEtoile(noeud);
                     L_resultat.RemoveAt(0);
@@ -249,7 +254,7 @@ namespace Projet_IA_test
             }
             int index=0;
             int k = 0;
-            Debug.WriteLine(L_dist.Count + "//" + L_Gene.Count);
+            
             foreach(int distance in L_dist)
             {
                 if(distance<cout_min)
@@ -266,32 +271,35 @@ namespace Projet_IA_test
         public List<GenericNode> cheminAvecFermes(string nom)
 
         {
-            int nombre_ferme=0;
+            int nombre_ferme = 0;
             int reste_division = 0;
-            int quotient_division = 0;            
-            List<String> L_fermes_trajet=new List<String>();
+            int quotient_division = 0;
+            List<String> L_fermes_trajet = new List<String>();
             List<GenericNode> L_chemin = new List<GenericNode>();
             List<int> L_index = new List<int>();
-            List<GenericNode> L_Gene=new List<GenericNode>();
-            List<GenericNode> L_Chemin_Intermediaire= new List<GenericNode>();
-            int index=0;
+            List<GenericNode> L_Gene = new List<GenericNode>();
+            List<GenericNode> L_Chemin_Intermediaire = new List<GenericNode>();
+            int index = 0;
 
             L_chemin = cheminAvecEtapes(nom);
-
+            //Debug.WriteLine("nb "+L_chemin.Count());
             foreach (GenericNode noeud in L_chemin)
             {
                 index++;
-                for (int i = 0; i < ferme.Length-1; i++)
+                for (int i = 0; i < ferme.Length - 1; i++)
                 {
-                    if (noeud.GetNom() == ferme[i].ToString())
+                    if (noeud.GetNom() == ferme[i].ToString() && !L_fermes_trajet.Contains(noeud.GetNom()))
                     {
-                        
+
                         L_fermes_trajet.Add(noeud.GetNom());
                         L_index.Add(index);
+                        Debug.WriteLine("INDEX " + index);
                     }
                 }
                 nombre_ferme = L_fermes_trajet.Count();
-                if (nombre_ferme<4)
+                //Debug.WriteLine("nb FERMES "+nombre_ferme);
+            }
+            if (nombre_ferme < 4)
                 {
                     L_Gene = L_chemin;
                 }
@@ -299,16 +307,16 @@ namespace Projet_IA_test
                 {
                     reste_division = nombre_ferme % 4;
                     quotient_division = nombre_ferme / 4;
-                    string chemin="";
+                    string chemin = "";
 
-                    int k=0;
-                    while (quotient_division>0)
+                    int k = 0;
+                    while (quotient_division > 0)
                     {
                         k++;
-                        for (int i = k; i< (4*k)-1; i++)
+                        for (int i = k; i < L_index[4*k-1]-1; i++)
                         {
-                            chemin = chemin+ L_chemin[i].GetNom();
-                       
+                            chemin += L_chemin[i].GetNom();
+                            //Debug.WriteLine("Chemin " + chemin);
 
                         }
 
@@ -321,81 +329,53 @@ namespace Projet_IA_test
 
 
                         quotient_division--;
-                        
+
                     }
 
-                    if( reste_division>0)
-                    {
-                        while (reste_division>0)
+                        while (reste_division > 0)
                         {
+                            chemin = "";
+                            for (int i = L_index[4 * k - 1] - 1; i < L_chemin.Count()-1; i++)
+                            {
+                            
+                                chemin += L_chemin[i].GetNom();
+                                //Debug.WriteLine("Chemin " + chemin);
+                         }
 
+                            L_Chemin_Intermediaire = cheminAvecEtapes(chemin);
+
+                            foreach (GenericNode noeud2 in L_Chemin_Intermediaire)
+                            {
+                                L_Gene.Add(noeud2);
+                            }
+
+
+
+                            reste_division--;
                         }
                     }
 
-                }
-            }
-            
+            int count_etapes=0;
 
-           /* for (int i = 0; i < nom.Length-1; i++)
+            while(count_etapes<L_Gene.Count())
             {
-                for (int j = 0; j <ferme.Length-1 ; j++)
+                if(L_Gene[count_etapes]==L_Gene[count_etapes+1] && L_Gene[count_etapes].GetNom()=="A")
                 {
-                    if(nom[i]==ferme[j])
-                    {
-                        nombre_ferme = nombre_ferme + 1;
-                        L_fermes_trajet.Add(nom[i]);
-
-                    }
+                    L_Gene.RemoveAt(count_etapes);
                 }
+                        
+                        
+                        
+            }
+
+                
+
             
-                if(nombre_ferme<4)
-                {
-                    L_Gene = cheminAvecEtapes(nom);
-                    return L_Gene;
-                }
-                else
-                {
-                    int compteur_ferme = nombre_ferme;
-                    while (compteur_ferme==0)
-                    {
-
-                    }
-                }
-            }*/
-
-
-
+            return L_Gene;
         }
-        /*  static List<String> permute(char[] arry, int i, int n)
-          {
-              List<String> liste_possibilites = new List<String>();
-              int j;
-              if (i == n)
-              {
-                  liste_possibilites.Add(new String(arry));
-              }
-
-              else
-              {
-                  for (j = i; j <= n; j++)
-                  {
-                      swap(ref arry[i], ref arry[j]);
-                      permute(arry, i + 1, n);
-                      swap(ref arry[i], ref arry[j]);
-                  }
-              }
-
-              return liste_possibilites;
-          }
-
-          static void swap(ref char a, ref char b)
-          {
-              char tmp;
-              tmp = a;
-              a = b;
-              b = tmp;
-          }*/
-
+            
+              
+  
 
         private void Permutation(string soFar, string input)
         {
@@ -405,7 +385,7 @@ namespace Projet_IA_test
             {
                 L_permut.Add(soFar);
                 liste_possibilites.Add(soFar);
-                Debug.WriteLine(soFar+"//"+liste_possibilites.Count);
+                //Debug.WriteLine(soFar+"//"+liste_possibilites.Count);
             }
             else
             {
@@ -418,6 +398,63 @@ namespace Projet_IA_test
             }
             
         }
+
+        public int correspondanceLettresChiffres(char noeud)
+        {
+            int indice=0;
+            int i = 0;
+            foreach( char node in intersection)
+            {
+                if (node==noeud)
+                {
+                    indice = i;
+                }
+
+                i++;
+            }
+          return indice;
+        }
+
+        public int[] assignationSculpture()
+        {
+            int[] sculpture = new int[23];
+            
+            Random rnd = new Random();
+
+            sculpture[0] = rnd.Next(1, 4);
+            List<int> index_succ = new List<int>();
+            List<int> numero_sculpt_succ = new List<int>();
+
+
+            for (int i = 1; i < sculpture.Length; i++)
+            {
+                for (int k = 0; k < sculpture.Length; k++)
+                {
+                    if (matrice[i, k] != 0)
+                    {
+                        index_succ.Add(k);
+                    }
+
+                }
+
+                foreach (int index in index_succ)
+                {
+                    numero_sculpt_succ.Add(sculpture[index]);
+                }
+
+                while(sculpture[i]==0 || numero_sculpt_succ.Contains(sculpture[i]))
+                {
+                    sculpture[i] = rnd.Next(1, 4);
+                }
+
+                
+            }
+
+            return sculpture;
+
+
+        }
+
 
     }
 }
