@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -45,7 +44,6 @@ namespace Projet_IA_test
         {
             InitializeComponent();
             Node.matrice = matrice;
-            Graph.matrice = matrice;
             Node.correspondance = correspondance_Chiffre_Lettres;
 
         }
@@ -119,77 +117,6 @@ namespace Projet_IA_test
 
 
             
-        }
-
-        private void btn_search_fermes_Click(object sender, EventArgs e)
-        {
-            List<GenericNode> solution;
-            string saisie;
-            saisie = txtBox_chemin_fermes.Text;
-            Graph g = new Graph();
-            solution = g.cheminAvecFermes(saisie);
-            listbox_affichage.Items.Clear();
-            foreach (GenericNode N in solution)
-            {
-                listbox_affichage.Items.Add(N);
-            }
-
-        }
-
-        private void btn_sculpture_Click(object sender, EventArgs e)
-        {
-            
-            int[] solution;
-
-            solution = assignationSculpture();
-
-            foreach(int sculpture in solution)
-            {
-                listbox_affichage.Items.Add(sculpture);
-            }
-
-        }
-
-        public int[] assignationSculpture()
-        {
-            int[] sculpture = new int[23];
-
-            Random rnd = new Random();
-
-            sculpture[0] = rnd.Next(1, 4);
-            List<int> index_succ = new List<int>();
-            List<int> numero_sculpt_succ = new List<int>();
-
-
-            for (int i = 1; i < 23; i++)
-            {
-                Debug.WriteLine(i);
-                for (int k = 0; k < 23; k++)
-                {
-                    if (matrice[i, k] != 0)
-                    {
-                        index_succ.Add(k);
-                    }
-
-                }
-
-                foreach (int index in index_succ)
-                {
-                    numero_sculpt_succ.Add(sculpture[index]);
-                }
-
-                while (sculpture[i] == 0 || numero_sculpt_succ.Contains(sculpture[i]))
-                {
-                    sculpture[i] = rnd.Next(1, 4);
-                }
-
-                Debug.WriteLine("sculpture"+ i +":" +sculpture[i]);
-
-            }
-
-            return sculpture;
-
-
         }
 
 
